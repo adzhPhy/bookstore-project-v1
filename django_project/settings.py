@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     #new
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
+    'books.apps.BooksConfig',
 ]
 
 SITE_ID = 1
