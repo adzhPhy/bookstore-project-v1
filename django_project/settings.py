@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     #3rd party
     'crispy_forms',
     'crispy_bootstrap5',
@@ -49,8 +50,9 @@ INSTALLED_APPS = [
     #new
     'accounts.apps.AccountsConfig',
     'pages.apps.PagesConfig',
-
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -67,7 +69,7 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,13 +144,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 LOGIN_REDIRECT_URL = 'home'
 ACCOUNT_LOGOUT_REDIRECT = 'home' # allows logout customization from allauth
-SITE_ID = 1
+
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
     ) # this is added for using email password in login
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # since we dont have a smtp configured, this simply console logs emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend' # since we dont have a smtp configured, this simply console logs emails
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 # email only login
@@ -156,3 +158,4 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
+DEFAULT_FROM_EMAIL = 'admin@djangobookstore.com'
