@@ -9,6 +9,7 @@ services:
       - 8000:8000
     depends_on:
       - db
+      - redis
     environment:
       - "DJANGO_SECRET_KEY=django-insecure-&8=lv@ghy(owk%-b94-4l%1ne3#pvgk4@b8xe@($$1a5r3wn(i+"
       - "DJANGO_DEBUG=True"
@@ -18,12 +19,14 @@ services:
       - "DJANGO_SECURE_HSTS_PRELOAD=False"
       - 'SESSION_COOKIE_SECURE = env.bool("DJANGO_SESSION_COOKIE_SECURE", default=True)'
       - 'CSRF_COOKIE_SECURE = env.bool("DJANGO_CSRF_COOKIE_SECURE", default=True)'
-
   db:
     image: postgres:13
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - "POSTGRES_HOST_AUTH_METHOD=trust"
+  redis:
+    image: "redis:alpine"
+
 volumes:
   postgres_data:
